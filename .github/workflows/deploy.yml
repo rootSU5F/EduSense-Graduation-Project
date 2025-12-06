@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -20,9 +21,12 @@ jobs:
         working-directory: Prototype
         run: npm install
 
+      - name: Install global vite
+        run: npm install -g vite
+
       - name: Build project
         working-directory: Prototype
-        run: npm run build
+        run: vite build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
