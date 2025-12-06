@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react-swc";     // SWC version
+import reactClassic from "@vitejs/plugin-react";  // Classic React plugin
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
@@ -9,12 +10,18 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+
+  plugins: [
+    react(),            // SWC React compiler
+    reactClassic(),     // Classic React plugin you requested
+    mode === "development" && componentTagger()
+  ].filter(Boolean),
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
 
-  base: "/EduSense-Graduation-Project/", 
+  base: "/EduSense-Graduation-Project/",
 }));
