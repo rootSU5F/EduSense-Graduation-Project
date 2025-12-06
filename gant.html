@@ -1,0 +1,298 @@
+<style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --bg: #fafbfc;
+      --grid-line: #e1e4e8;
+      --task-bar: #5b7c99;
+      --task-bar-alt: #8b6d9c;
+      --bar-text: #ffffff;
+      --milestone: #d97706;
+      --text: #24292e;
+      --border: #d0d7de;
+    }
+  
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+  
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--bg);
+      padding: 2rem;
+    }
+  
+    /* ============================================
+       GANTT CONTAINER
+       ============================================ */
+    .gantt {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  
+    /* ============================================
+       HEADER ROW
+       Contains: Title cell + Week labels (1-15)
+       ============================================ */
+    .gantt-header {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      border-bottom: 2px solid var(--border);
+      background: #f6f8fa;
+    }
+  
+    .gantt-header-title {
+      padding: 12px 16px;
+      font-weight: 600;
+      border-right: 1px solid var(--border);
+    }
+  
+    .gantt-header-timeline {
+      display: grid;
+      /* 15 equal columns for Week 1 through Week 15 */
+      grid-template-columns: repeat(15, 1fr);
+    }
+  
+    .gantt-week-label {
+      padding: 12px 4px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: #57606a;
+      border-right: 1px solid var(--grid-line);
+    }
+  
+    .gantt-week-label:last-child {
+      border-right: none;
+    }
+  
+    /* ============================================
+       GANTT ROWS
+       Each row = Task label (left) + Timeline grid (right)
+       ============================================ */
+    .gantt-row {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 40px;
+      border-bottom: 1px solid var(--grid-line);
+    }
+  
+    .gantt-row:last-child {
+      border-bottom: none;
+    }
+  
+    /* ============================================
+       TASK LABEL (Left Column)
+       ============================================ */
+    .gantt-label {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      border-right: 1px solid var(--border);
+      background: #fafbfc;
+    }
+  
+    /* ============================================
+       TIMELINE GRID (Right Column)
+       - 15 columns (one per week)
+       - Vertical grid lines between weeks
+       - Task bars and milestones positioned here
+       ============================================ */
+    .gantt-timeline {
+      display: grid;
+      /* 15 equal-width columns */
+      grid-template-columns: repeat(15, 1fr);
+      position: relative;
+      background: 
+        repeating-linear-gradient(
+          to right,
+          transparent,
+          transparent calc(100% / 15 - 1px),
+          var(--grid-line) calc(100% / 15 - 1px),
+          var(--grid-line) calc(100% / 15)
+        );
+    }
+  
+    /* ============================================
+       TASK BAR
+       - Uses grid-column: START / span DURATION
+       - Example: grid-column: 2 / span 5 means
+         starts at Week 2, spans 5 weeks
+       ============================================ */
+    .gantt-bar {
+      /* grid-column set inline per task */
+      align-self: center;
+      height: 24px;
+      background: var(--task-bar);
+      border-radius: 4px;
+      color: var(--bar-text);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      margin: 0 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    /* Alternate bar color for overlapping tasks */
+    .gantt-bar.alt {
+      background: var(--task-bar-alt);
+    }
+  
+    /* ============================================
+       MILESTONE
+       - Diamond shape (rotated square)
+       - Positioned at a specific week using grid-column
+       ============================================ */
+    .gantt-milestone {
+      /* grid-column set inline per milestone */
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 8px;
+    }
+  
+    .gantt-milestone-marker {
+      width: 12px;
+      height: 12px;
+      background: var(--milestone);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+  
+    .gantt-milestone-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+  
+    /* ============================================
+       DEVELOPER NOTES:
+       
+       To add a new task bar:
+       1. Create a new .gantt-row
+       2. Add .gantt-label with task name
+       3. Add .gantt-timeline container
+       4. Add .gantt-bar with style="grid-column: START / span DURATION"
+          - START = week number where task begins
+          - DURATION = number of weeks task spans
+          - Example: Week 3 for 4 weeks = "grid-column: 3 / span 4"
+       
+       To add a new milestone:
+       1. Create a new .gantt-row
+       2. Add .gantt-label (can be empty or label milestone)
+       3. Add .gantt-timeline container
+       4. Add .gantt-milestone with style="grid-column: WEEK"
+          - WEEK = the specific week number
+          - Example: Week 11 = "grid-column: 11"
+       
+       ============================================ */
+  </style>
+  
+  <div class="gantt">
+    <!-- HEADER ROW: Title + Week labels -->
+    <div class="gantt-header">
+      <div class="gantt-header-title">Project 1 – Timeline</div>
+      <div class="gantt-header-timeline">
+        <div class="gantt-week-label">Week 1</div>
+        <div class="gantt-week-label">Week 2</div>
+        <div class="gantt-week-label">Week 3</div>
+        <div class="gantt-week-label">Week 4</div>
+        <div class="gantt-week-label">Week 5</div>
+        <div class="gantt-week-label">Week 6</div>
+        <div class="gantt-week-label">Week 7</div>
+        <div class="gantt-week-label">Week 8</div>
+        <div class="gantt-week-label">Week 9</div>
+        <div class="gantt-week-label">Week 10</div>
+        <div class="gantt-week-label">Week 11</div>
+        <div class="gantt-week-label">Week 12</div>
+        <div class="gantt-week-label">Week 13</div>
+        <div class="gantt-week-label">Week 14</div>
+        <div class="gantt-week-label">Week 15</div>
+      </div>
+    </div>
+  
+    <!-- ROW 1: Project topic & abstract approval (Week 1-2) -->
+    <div class="gantt-row">
+      <div class="gantt-label">Project topic & abstract approval</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar" style="grid-column: 1 / span 2;">Topic & abstract</div>
+      </div>
+    </div>
+  
+    <!-- ROW 2: Literature review & research gaps (Week 2-6) -->
+    <div class="gantt-row">
+      <div class="gantt-label">Literature review & research gaps</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar" style="grid-column: 2 / span 5;">Literature review & research gaps</div>
+      </div>
+    </div>
+  
+    <!-- ROW 3: System requirements (Week 7-8) -->
+    <div class="gantt-row">
+      <div class="gantt-label">System requirements</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar" style="grid-column: 7 / span 2;">System requirements</div>
+      </div>
+    </div>
+  
+    <!-- ROW 4: Architecture & system design (Week 9-10) -->
+    <div class="gantt-row">
+      <div class="gantt-label">Architecture & system design (HLD/LLD)</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar" style="grid-column: 9 / span 2;">Architecture & design</div>
+      </div>
+    </div>
+  
+    <!-- ROW 5: MILESTONE – Mid Presentation (Week 11) -->
+    <div class="gantt-row">
+      <div class="gantt-label">Mid Presentation</div>
+      <div class="gantt-timeline">
+        <div class="gantt-milestone" style="grid-column: 11;">
+          <div class="gantt-milestone-marker"></div>
+          <div class="gantt-milestone-label">Mid Presentation</div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- ROW 6: Prototype & UI draft (Week 12-13) -->
+    <div class="gantt-row">
+      <div class="gantt-label">Prototype & UI draft</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar" style="grid-column: 12 / span 2;">Prototype & UI draft</div>
+      </div>
+    </div>
+  
+    <!-- ROW 7: Final report compilation & submission (Week 12-14) -->
+    <div class="gantt-row">
+      <div class="gantt-label">Final report compilation & submission</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar alt" style="grid-column: 12 / span 3;">Final report & submission</div>
+      </div>
+    </div>
+  
+    <!-- ROW 8: MILESTONE – Final Presentation & Demo (Week 15) -->
+    <div class="gantt-row">
+      <div class="gantt-label">Final Presentation & Demo</div>
+      <div class="gantt-timeline">
+        <div class="gantt-milestone" style="grid-column: 15;">
+          <div class="gantt-milestone-marker"></div>
+          <div class="gantt-milestone-label">Final Presentation & Demo</div>
+        </div>
+      </div>
+    </div>
+  </div>

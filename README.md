@@ -1,102 +1,82 @@
 # 🧠 EduSense: Intelligent System for Detecting Student Confusion
 
-**EduSense** is an AI-powered system designed to enhance online learning by detecting student confusion in real time.  
-Using computer vision and deep learning, it analyzes facial expressions, gaze direction, and head movements through a webcam to identify moments of confusion during lectures.
+EduSense is an academic graduation project aimed at enhancing online learning by detecting student confusion during lectures and organizing project documentation, planning, and research artifacts in a single place.
 
-When confusion is detected, the system links those moments to lecture timestamps and automatically generates adaptive learning resources — such as summarized notes, interactive quizzes, and runnable Jupyter notebooks for programming content.
-
----
-
-## 🎯 Project Objectives
-- Detect student confusion using real-time webcam input.  
-- Improve online education by providing adaptive feedback.  
-- Develop an interpretable AI model using Kolmogorov–Arnold Networks (KANs).  
-- Automate personalized learning material generation.  
+This repository currently focuses on documentation, planning (Gantt), references, and presentation materials. Implementation artifacts (code) will be added in later phases.
 
 ---
 
-## 🧩 System Overview
-EduSense consists of four integrated components:
-
-| Module | Description |
-|---------|--------------|
-| **Frontend** | Web interface for students and instructors to visualize confusion analytics. |
-| **Backend** | Flask-based REST API for handling communication and logic. |
-| **AI Model** | Confusion detection using PyTorch and Kolmogorov–Arnold Networks. |
-| **Database** | SQLite / PostgreSQL for storing user data, video timestamps, and results. |
-
----
-
-## ⚙️ Tech Stack
-| Layer | Tools & Frameworks |
-|--------|--------------------|
-| **AI Model** | Python, PyTorch, OpenCV, NumPy, Pandas |
-| **Backend** | Flask, REST API |
-| **Frontend** | HTML, CSS, JavaScript |
-| **Database** | SQLite / PostgreSQL |
-| **Documentation** | Markdown, LaTeX, Draw.io, Canva |
+## 🎯 Objectives
+- Define and document the problem and solution space for student confusion detection.
+- Plan milestones and deliverables with a clear Gantt timeline.
+- Collect and curate research papers, datasets, and references.
+- Prepare presentation materials for checkpoints and final defense.
 
 ---
 
 ## 🧱 Repository Structure
 EduSense-Graduation-Project/
 │
-├── docs/ # Project chapters and reports (Introduction, Literature Review, Design)
-├── diagrams/ # Architecture, flowcharts, ERD
-├── slides/ # Midterm and final presentation slides
-├── references/ # Research papers, datasets, and citations
-├── src/ # Source code (frontend, backend, model)
-├── tests/ # Unit and system tests
-├── results/ # Model evaluation, confusion matrix, graphs
-└── README.md # Project overview (you are here)
+├── Docs/                 # Chapters, reports, and formal documentation
+├── Diagrams/             # Architecture sketches, flowcharts, and ERDs
+├── References/           # Research papers, dataset notes, and citations
+├── Slides/               # Midterm/final presentation slides
+├── gant.html             # Gantt chart (interactive HTML)
+├── gantt.csv             # Gantt data source (CSV)
+└── README.md             # Project overview (this file)
 
-
-
+Note: Directory names reflect the current repository (capitalization matters on some systems).
 
 ---
 
-## 🧭 Project Phases
-1. **High-Level Design (HLD):** Define system architecture and workflow.  
-2. **Low-Level Design (LLD):** Detail internal modules and logic.  
-3. **Implementation:** Develop AI model, backend, and interface.  
-4. **Testing:** Validate performance and usability.  
-5. **Deployment & Maintenance:** Host and optimize the system.
+## 📅 Gantt Chart
+- Open `gant.html` directly in your browser to view the interactive Gantt.
+- The Gantt reads from `gantt.csv`. To update the plan:
+  1. Edit `gantt.csv` (keep the same columns/format).
+  2. Refresh `gant.html` in the browser to see changes.
+
+If you move files, update paths in `gant.html` accordingly.
 
 ---
 
-## 🧑‍💻 Team Members
-| Name | Role |
-|------|------|
-| **Saeed** | Project Lead / System Architect |
-| Member 2 | Backend & AI Developer |
-| Member 3 | Frontend Developer / UI Designer |
-| Member 4 | Database & Integration Engineer |
-| Member 5 | Testing & Evaluation Specialist |
+## 📚 Documentation
+- Primary documents are under `Docs/`.
+- The formal report is available at `Docs/Report/Project Report.pdf`.
+- Use `Docs/Chapters/` for incremental chapter drafts (Introduction, Literature Review, Design, etc.).
 
 ---
 
-## 🧾 References
-All academic, technical, and dataset references are listed in the [`/references`](./references) folder.
+## 🔎 References
+All academic, technical, and dataset references are under `References/`. Highlights include recent works on multimodal emotion detection and educational AI systems. See also `References/DataSet.md` for dataset notes when applicable.
 
 ---
 
-## 📅 Current Stage: Project One (Documentation)
-This phase focuses on:
-- Writing and refining Chapters 1–3  
-- Designing system architecture diagrams  
-- Preparing midterm presentation slides  
-- Organizing documentation and references  
+## 🖥️ Slides
+Checkpoint and final presentations are stored under `Slides/`.
+
+---
+
+## 🧭 Roadmap (High Level)
+1. High-Level Design (HLD): architecture, data flow, and module definitions.
+2. Low-Level Design (LLD): detailed module specifications and interfaces.
+3. Prototype: minimal confusion-detection pipeline and demo UI.
+4. Evaluation: metrics, user study (if applicable), and refinements.
+5. Finalization: documentation, slides, and defense preparation.
+
+---
+
+## 🧑‍💻 Contributors
+- Saeed — Project Lead / System Architect
+- (Add teammates and roles here as the team finalizes.)
 
 ---
 
 ## 🏛️ Institution
-**King Khalid University (KKU)** – College of Computer Science  
-*Graduation Project 2025*
+King Khalid University (KKU) — College of Computer Science  
+Graduation Project 2025
 
 ---
 
 ## 📜 License
-This project is for academic purposes only.  
-© 2025 EduSense Team – All Rights Reserved.
-
-
+This repository is for academic and non-commercial use as part of a graduation project.  
+© 2025 EduSense Team — All Rights Reserved.
