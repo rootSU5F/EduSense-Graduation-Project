@@ -226,10 +226,12 @@ Phase 5  ░░░░░░░░░░  📋  Finalization
 <b>Saeed</b><br/>
 <sub>Project Lead · System Architect · ML Engineer</sub>
 </td>
+<td align="center">
+<b>Fahad Abdullah</b><br/>
+<sub>Developer · Implementation Engineer</sub>
+</td>
 </tr>
 </table>
-
-> Team members and roles will be updated as contributors are finalized.
 
 ---
 
