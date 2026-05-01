@@ -14,13 +14,19 @@ from pathlib import Path
 from dotenv import load_dotenv
 import sys
 
-load_dotenv()
+_env_path = Path(__file__).parent / '.env'
+print(f'[DEBUG] .env path: {_env_path}')
+print(f'[DEBUG] .env exists: {_env_path.exists()}')
+print(f'[DEBUG] .env contents: {_env_path.read_text() if _env_path.exists() else "FILE NOT FOUND"}')
+load_dotenv(_env_path)
 
 # ── Supabase client ───────────────────────────────────────
 from supabase import create_client, Client
 
 SUPABASE_URL         = os.getenv('SUPABASE_URL', '')
 SUPABASE_SERVICE_KEY = os.getenv('SUPABASE_SERVICE_KEY', '')
+print(f'[DEBUG] SUPABASE_URL loaded: {repr(SUPABASE_URL)}')
+print(f'[DEBUG] SUPABASE_SERVICE_KEY loaded: {repr(SUPABASE_SERVICE_KEY[:20] + "..." if SUPABASE_SERVICE_KEY else "EMPTY")}')
 sb: Client           = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 print('✅ Supabase client ready')
 
@@ -75,8 +81,12 @@ baseline_happy    = 0.10
 # ── Initialize FER ────────────────────────────────────────
 try:
     from fer import FER as _FER
-    _fer_detector = _FER()
-    print('✅ FER detector ready')
+    try:
+        _fer_detector = _FER(mtcnn=True)
+        print('✅ FER detector ready (MTCNN)')
+    except Exception:
+        _fer_detector = _FER()
+        print('✅ FER detector ready (Haar cascade fallback)')
 except Exception as e:
     _fer_detector = None
     print(f'⚠️ FER not loaded: {e}')
@@ -133,6 +143,7 @@ def analyze_frame(frame_bgr):
 
         result = detector.detect_emotions(small)
         if not result:
+            print('[FER] No face detected in frame')
             return None
 
         best = max(result, key=lambda x: x['box'][2] * x['box'][3])

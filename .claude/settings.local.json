@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip show *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\branc\\\\Fahad\\\\EduSense-Graduation-Project\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)"
+    ]
+  }
+}

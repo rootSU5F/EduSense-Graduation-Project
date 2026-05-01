@@ -43,11 +43,15 @@ session = {
 from collections import deque
 emotion_buffer = deque(maxlen=5)
 
-# Initialize FER once
+# Initialize FER once — prefer MTCNN (robust), fall back to Haar cascade
 try:
     from fer import FER as _FER
-    _fer_detector = _FER()
-    print('✅ FER detector ready')
+    try:
+        _fer_detector = _FER(mtcnn=True)
+        print('✅ FER detector ready (MTCNN)')
+    except Exception:
+        _fer_detector = _FER()
+        print('✅ FER detector ready (Haar cascade fallback)')
 except Exception as e:
     _fer_detector = None
     print(f'⚠️ FER not loaded: {e}')
@@ -74,6 +78,7 @@ def analyze_frame(frame_bgr):
             return None
         result = detector.detect_emotions(frame_bgr)
         if not result:
+            print('[FER] No face detected in frame')
             return None
         raw = result[0]['emotions']
 
@@ -302,6 +307,8 @@ def analyze_frame_route():
         img_bytes = base64.b64decode(img_data.split(',')[1])
         nparr     = np.frombuffer(img_bytes, np.uint8)
         frame     = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        if frame is None:
+            return jsonify({'emotions': None, 'triggered': False})
         emotions  = analyze_frame(frame)
 
         if emotions is None:
