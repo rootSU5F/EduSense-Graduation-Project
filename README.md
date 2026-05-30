@@ -590,6 +590,6 @@ Redistribution or commercial use without explicit written permission is prohibit
 
 *Built with curiosity, caffeine, and a deep belief that every confused student deserves to be understood.*
 
-**⭐ Star this repo if EduSense helped you — it means a lot to the team.**
+**⭐ Star this repo if EduSense helped you — it means a lot to the team .**
 
 </div>
